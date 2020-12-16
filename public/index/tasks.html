@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+
+    <link rel="stylesheet" href="/public/CSS/tasks.css" type="text/css">
+    <link rel="stylesheet" href="https://use.typekit.net/weo2jia.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    
+    <main>
+        <section>
+            <div id="pageTopContainer">
+                <div id="pageTopContent">
+                    <h1 id="companyName">Now.</h1>
+
+                    <input id="searchPage" placeholder="Search">
+
+                    <div id="navIconsGrid">
+
+                        <div id="dashboardIconContainer" onclick="toPage('index')" class="nav-Icons-Containers">
+                            <div id="dashboardIcon" class="navIcons"></div>
+                        </div>
+
+                        <div id="taskIconContainer" onclick="toPage('tasks')">
+                            <svg id="taskIcon" class="navIcons" xmlns="http://www.w3.org/2000/svg" width="65" height="67" viewBox="0 0 65 67"><g transform="translate(-0.435 0.485)"><rect class="a" width="65" height="21" rx="4" transform="translate(0.435 45.515)"/><rect class="a" width="65" height="21" rx="4" transform="translate(0.435 18.515)"/><rect class="a" width="65" height="14" rx="4" transform="translate(0.435 -0.485)"/></g></svg>
+                            <img id="invertNav" src="/Imgs/iconsNav/Invert.svg"/>
+
+                            <p id="dashboardNavText">Tasks</p>
+                        </div>
+
+                        <div id="remindersIconContainer" onclick="toPage('reminders')" class="nav-Icons-Containers">
+                            <img src="/Imgs/iconsNav/Group 28.svg" class="navIcons"/>
+                        </div>
+                        
+                    </div>
+
+                    <div id="userProfile"></div>
+
+                </div>
+            </div>
+        </section>  
+
+
+        <section>
+            <div id="graySection">
+                <div id="grayContent">
+                    <div id="title-view-options">
+                        <h1 id="mainTitle">Tasks</h1>
+
+                        <div class="task-view-options-cont"></div>
+
+                        <div class="cont-task-add-button">
+                            <button class='button-task-add'>
+                                <img id="img-plus-icon"  src="https://img.icons8.com/metro/26/000000/plus-math.png"/>
+                            </button>
+                            <button class="add-Task-Click">Add Task</button>
+                        </div>
+                    </div>
+
+                    <div id="row1">
+                        <div id="mainCardRow1" class="row1">
+
+                            <div id="mainCardRow1ViewOptions">
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div id="userTasks">
+                                <div id="taskContainer1">
+                                    <h1 id="taskTitle1"><b>Study</b> for my <b>upcoming exam</b></h1>
+                                    <div class="task-attachments">
+                                        <img src="/Imgs/attach-icons/dark-green.svg" alt="" class="attachment-icon"/>
+                                        <p>3</p>
+                                    </div>
+
+                                    <div></div>
+
+                                    <div id="taskDue1" class="task-due">Dec. 20</div>
+                                    <div class="task-status1"  id="taskstatus1">Done</div>
+                                </div>
+                                <div id="taskContainer2" class="unfocused-user-task">
+                                    <div id="taskTitle2"></div>
+                                    <div id="taskDue2"></div>
+                                    <div id="taskstatus2"></div>
+                                </div>
+                                <div id="taskContainer3" class="unfocused-user-task">
+                                    <div id="taskTitle3"></div>
+                                    <div id="taskDue3"></div>
+                                    <div id="taskstatus3"></div>
+                                </div>
+                                <div id="taskContainer4" class="unfocused-user-task">
+                                    <div id="taskTitle4"></div>
+                                    <div id="taskDue4"></div>
+                                    <div id="taskstatus4"></div>
+                                </div>
+                                <div id="taskContainer5" class="unfocused-user-task">
+                                    <div id="taskTitle5"></div>
+                                    <div id="taskDue5"></div>
+                                    <div id="taskstatus5"></div>
+                                </div>
+                                <div id="taskContainer6" class="unfocused-user-task">
+                                    <div id="taskTitle6"></div>
+                                    <div id="taskDue6"></div>
+                                    <div id="taskstatus6"></div>
+                                </div>
+                                <div id="taskContainer7" class="unfocused-user-task">
+                                    <div id="taskTitle7"></div>
+                                    <div id="taskDue7"></div>
+                                    <div id="taskstatus7"></div>
+                                </div>
+                                <div id="taskContainer8" class="unfocused-user-task">
+                                    <div id="taskTitle8"></div>
+                                    <div id="taskDue8"></div>
+                                    <div id="taskstatus8"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div id="subCardRow1" class="row1">
+                            <div class="user-task-title-container">
+                                <h1 id="userSelectedTaskTitle">Study for my upcoming exam</h1>
+                            </div>
+
+
+                            <h1 id="userSelectedTaskDesc">Description</h1>
+                            <div class="user-task-desc-container">
+                                <p>Study for math exam, 12/11/20. Mix of multiple choice 
+                                    and some writing. Must show all work, clearly 
+                                    visible and legible. 
+                                    <br> <br>
+                                    The quizlet is older 
+                                    and might not have all content. Reference the 
+                                    Desmos for examples and pointers. Textbook is current.
+                                </p>
+                            </div>
+
+
+                            <h1 id="userSelectedTaskAttach">Attachments</h1>
+                            <div id="user-task-attachments">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>   
+    </main>
+
+    <div class="curtain-transition">
+        <div class="loading-for-user"></div>
+    </div>
+
+</body>
+<script src="/public/JS/tasks.js"></script>
+</html>
