@@ -123,6 +123,15 @@ function startPage () {
        curtain.style.filter = 'opacity(0)'
        curtain.style.display = 'none'
    },1400);
+
+
+   var clientReminders = document.getElementById('userReminders')
+
+   if (localStorage.getItem('clientReminders') ===  null) {
+
+   } else {
+    clientReminders.innerHTML = localStorage.getItem('clientReminders')
+}
 }
 startPage();
 
@@ -144,13 +153,23 @@ function reminderAssign (string) {
 
 function buttonAssign () {
     var subjects = document.getElementsByClassName('remind-box')
-    /* Subjects is each reminder-or any element that has a class of remind-box. */
-    var reminderCount = subjects.length
-    for (i = 1; i < (reminderCount + 1); i++) {
-        //console.log(i)
-        reminderAssign(i)
 
+    if (subjects[0]) {
+        var getFirst = subjects[0].id
+        var childNum = getFirst[getFirst.length - 1]
+        //console.log(childNum)
+    
+        /* Subjects is each reminder-or any element that has a class of remind-box. */
+        var reminderCount = subjects.length
+        for (i = childNum; i < (reminderCount + parseInt(childNum)); i++) {
+            //console.log(i)
+            reminderAssign(i)
+    
+        }
+    } else {
+        return;
     }
+
 }
 buttonAssign();
 
@@ -209,11 +228,12 @@ function clearReminder() {
     } else {
         var childNum = parseInt(string)
         var childToRemove = document.getElementById('reminder' + childNum)
-        console.log(childToRemove)
+        //console.log('Hello??')
 
         childToRemove.style.animation = "clearReminderSlide 0.6s"
         setTimeout(function() {
             document.getElementById('userReminders').removeChild(childToRemove)
+            saveClientReminders();
         }, 599)
     }
 
@@ -246,7 +266,13 @@ function unClearReminder (string) {
 
     document.getElementsByClassName('clearRemindButton' + string)[0].innerHTML = "Clear"
 
-    document.getElementById('reminder' + string).removeChild(document.getElementById('reminder' + string).lastChild)
+    //console.log(document.getElementById('reminder' + string).children.length)
+
+    if (document.getElementById('reminder' + string).children.length > 2 ) {
+        document.getElementById('reminder' + string).removeChild(document.getElementById('reminder' + string).lastChild)
+    }
+
+
 }
 
 //#of reminders [UNUSED]
@@ -375,7 +401,7 @@ localStorage.setItem('remInputFocus', 'no')
 function showInputCreateNewReminder() {
 
     localStorage.setItem('remInputFocus', 'yes')
-    console.log("bruh2")
+    //console.log("bruh2")
 
     var input = document.getElementById('clientTextInput')
 
@@ -467,4 +493,10 @@ function createNewReminder() {
 
     assignRemoveListenersClear ();
     buttonAssign();
+    saveClientReminders();
+}
+
+function saveClientReminders () {
+    var clientHtml = document.getElementById('userReminders').innerHTML
+    localStorage.setItem('clientReminders', clientHtml)
 }
