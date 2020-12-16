@@ -667,7 +667,7 @@
 
     background-color: white;
 
-    z-index: 2;
+    z-index: 5;
 
     filter: opacity(1);
 }

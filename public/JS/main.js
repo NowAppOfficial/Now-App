@@ -55,12 +55,12 @@ function toPage (string) {
    var curtain = document.getElementsByClassName('curtain-transition')[0];
    curtain.style.display = 'block'
 
-   curtain.style.zIndex = '2'
+   curtain.style.zIndex = '5'
    curtain.style.animation = 'height 0.6s cubic-bezier(.35, .76, .65, 1)'
 
    setTimeout(function() {
        curtain.style.filter = null
-       window.location.href = string + ".html"
+       window.location.href =  string + ".html"
    }, 1000);
 
    var pageInd = document.getElementById('invertNav')
