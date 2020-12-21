@@ -173,7 +173,7 @@
     left: 0;
 
     width: 100%;
-    height: 1000px;
+    height: 1040px;
 
     background-color: #F8F8F8;
 }
@@ -249,7 +249,7 @@
  }
  .add-Task-Click{
      filter: opacity(0);
-    top: 42px;
+    top: 45px;
     right: 0px;
     width: 90px;
     position: absolute;
@@ -329,6 +329,7 @@
     transition: cubic-bezier(.31, .05, .98, .94) 0.2s;
 }
 #subCardRow1 {
+    height: 100%;
     box-shadow: 0px 0px 45px rgba(119, 119, 119, 0.082);
 }
 #row2 > div:hover {
@@ -381,7 +382,12 @@
 
 
     border-radius: 6px;
-
+    transition: ease 0.4s;
+}
+#userTasks > div:hover {
+    transition: ease 0.4s;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(65, 65, 65, 0.199);
 }
 /*user task container not focused */
 .unfocused-user-task {
@@ -389,7 +395,9 @@
     background-color: #F0F0F0;
 
 }
-
+.task-Conts {
+    background-color: #F0F0F0;
+}
 
 #taskContainer1 {
     width: 100%;
@@ -398,9 +406,9 @@
     min-height: 0;
     min-width: 0;
 
-    background-color: rgb(196, 226, 196);
+    background-color: #f0f0f0;
 }
-#taskContainer1 > h1 {
+.task-Conts > h1 {
     font-family: 'Barlow', sans-serif;
     font-weight: 500;
     font-size: 18px;
@@ -410,7 +418,7 @@
 
     color: #555555;
 } 
-#taskContainer1 > div{
+.task-Conts > div{
     font-family: 'Barlow', sans-serif;
 
 
@@ -476,19 +484,54 @@
 #subCardRow1 {
     grid-area: 1 / 2 / 2 / 3;
     width: 100%;
-    margin-top: 0;
+    margin-top: 60px;
+    opacity: 0;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr 2fr 1fr 1fr;
+    grid-template-rows: auto 0.7fr 1fr 1fr 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 10px;
 
-    transition: cubic-bezier(.31, .05, .98, .94) 0.2s;
+    transition: cubic-bezier(.31, .05, .98, .94) 0.4s;
 }
 
+.other-client-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.other-client-options > h1 {
+    font-family: bely-display, sans-serif;
+    font-weight: lighter;
+    font-size: 21px;
 
+    color: #5A5A5A;
 
+    margin: auto auto auto 30px;
+}
+#dueDateBox {
+    margin: 0px auto auto 40px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: #414141;
+}
+#dueDateBox > div {
+    margin-top: 9px;
+    font-size: 16px;
+    font-weight: 400;
+}
+#dueDateBox >div:focus {
+    padding: 4px;
+}
+#status-box {
+    margin: auto;
+    font-family: 'Barlow', sans-serif;
+}
+#upcoming {
+    background-color: orange;
+}
 #row2 {
     position: relative;
 
@@ -511,7 +554,7 @@
     height: 100%;
 
     border-radius: 15px 15px 0 0;
-    background-color: rgb(196, 226, 196);
+    background-color: #e6deba;
 }
 #userSelectedTaskTitle {
     margin: 10px auto auto 30px;
@@ -519,8 +562,20 @@
     font-size: 27px;
     font-weight: lighter;
 
-    color: #292929;
+    color: #a59b72;
+
+    width: calc(100% - 70px);
+
+    border-radius: 4px;
 }
+#userSelectedTaskTitle:focus {
+    outline: none;
+    border: #a59b72 solid;
+    padding: 3px;
+}
+#userSelectedTaskTitle > div, #userSelectedTaskTitle > div > br {
+    display: none;
+} 
 #subCardRow1 > h1 {
     margin-left:  30px;
     color: #5A5A5A !important;
@@ -538,12 +593,20 @@
     font-weight: 400;
 
     margin: 0 35px 0 30px;
+
 }
 .user-task-desc-container > p {
     margin: -30px 0 0 0;
     color: #5A5A5A !important;
 
     letter-spacing: 0.01rem;
+
+
+    height: 100%;
+    border-radius: 6px;
+    border: solid 2px #dedede;
+    text-indent: 0.6em;
+    line-height: 40px;
 }
 
 

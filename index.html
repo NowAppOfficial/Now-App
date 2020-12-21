@@ -53,11 +53,12 @@
                         <div class="task-view-options-cont"></div>
 
                         <div class="cont-task-add-button">
-                            <input type="text" id="clientTextInput"/>
+                            <input placeholder="type here..." type="text" id="clientTextInput"/>
                             <button class='button-task-add'>
                                 <svg id="img-plus-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"width="26" height="26"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M79.38462,19.84615c-3.97956,0 -6.61538,2.63582 -6.61538,6.61538v46.30769h-46.30769c-3.97956,0 -6.61538,2.63582 -6.61538,6.61538v13.23077c0,3.97957 2.63582,6.61538 6.61538,6.61538h46.30769v46.30769c0,3.97957 2.63582,6.61538 6.61538,6.61538h13.23077c3.97957,0 6.61538,-2.63581 6.61538,-6.61538v-46.30769h46.30769c3.97957,0 6.61538,-2.63581 6.61538,-6.61538v-13.23077c0,-3.97956 -2.63581,-6.61538 -6.61538,-6.61538h-46.30769v-46.30769c0,-3.97956 -2.63581,-6.61538 -6.61538,-6.61538z"></path></g></g></svg>
                             </button>
                             <button class="add-Task-Click">Add Reminder</button>
+                            <button class="redirect-to-task-page" onclick="toPage('tasks')">Add Task</button>
                         </div>
                     </div>
 
@@ -110,7 +111,7 @@
                                 </div>
 
                                 <div id="artDots">
-                                    <img class="art-Dots-Svg" src="Imgs/Art/Dots.svg" alt="">
+                                    <img class="art-Dots-Svg" src="Imgs/Art/Seagreen/SeagreenDots.svg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -118,7 +119,9 @@
 
                     <div id="row2">
                         <div id="mainCardRow2"></div>
-                        <div id="subCardRow2"></div>
+                        <div id="subCardRow2">
+                            <div class="calendar-dashboard-client"></div>
+                        </div>
                     </div>
                     
                     <h1 id="subTitle">Analytics</h1>
@@ -142,6 +145,7 @@
     </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
 <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 <script src="public/JS/main.js"></script>
 </html>

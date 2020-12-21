@@ -16,7 +16,7 @@
         <section>
             <div id="pageTopContainer">
                 <div id="pageTopContent">
-                    <h1 id="companyName">Now.</h1>
+                    <h1 onclick="clearHtmlReset()" id="companyName">Now.</h1>
 
                     <input id="searchPage" placeholder="Search">
 
@@ -71,80 +71,54 @@
                             </div>
 
                             <div id="userTasks">
-                                <div id="taskContainer1">
+
+                                <div id="taskContainer1" class="task-Conts">
                                     <h1 id="taskTitle1"><b>Study</b> for my <b>upcoming exam</b></h1>
                                     <div class="task-attachments">
                                         <img src="Imgs/attach-icons/dark-green.svg" alt="" class="attachment-icon"/>
                                         <p>3</p>
                                     </div>
-
                                     <div></div>
-
                                     <div id="taskDue1" class="task-due">Dec. 20</div>
-                                    <div class="task-status1"  id="taskstatus1">Done</div>
-                                </div>
-                                <div id="taskContainer2" class="unfocused-user-task">
-                                    <div id="taskTitle2"></div>
-                                    <div id="taskDue2"></div>
-                                    <div id="taskstatus2"></div>
-                                </div>
-                                <div id="taskContainer3" class="unfocused-user-task">
-                                    <div id="taskTitle3"></div>
-                                    <div id="taskDue3"></div>
-                                    <div id="taskstatus3"></div>
-                                </div>
-                                <div id="taskContainer4" class="unfocused-user-task">
-                                    <div id="taskTitle4"></div>
-                                    <div id="taskDue4"></div>
-                                    <div id="taskstatus4"></div>
-                                </div>
-                                <div id="taskContainer5" class="unfocused-user-task">
-                                    <div id="taskTitle5"></div>
-                                    <div id="taskDue5"></div>
-                                    <div id="taskstatus5"></div>
-                                </div>
-                                <div id="taskContainer6" class="unfocused-user-task">
-                                    <div id="taskTitle6"></div>
-                                    <div id="taskDue6"></div>
-                                    <div id="taskstatus6"></div>
-                                </div>
-                                <div id="taskContainer7" class="unfocused-user-task">
-                                    <div id="taskTitle7"></div>
-                                    <div id="taskDue7"></div>
-                                    <div id="taskstatus7"></div>
-                                </div>
-                                <div id="taskContainer8" class="unfocused-user-task">
-                                    <div id="taskTitle8"></div>
-                                    <div id="taskDue8"></div>
-                                    <div id="taskstatus8"></div>
+                                    <div class="task-status1"  id="taskstatus1" style="background-color:#d2e8d2 ;">Done</div>
                                 </div>
                             </div>
+
 
                         </div>
 
                         <div id="subCardRow1" class="row1">
                             <div class="user-task-title-container">
-                                <h1 id="userSelectedTaskTitle">Study for my upcoming exam</h1>
+                                <h1 id="userSelectedTaskTitle" contenteditable="true">Add a title...</h1>
                             </div>
 
 
                             <h1 id="userSelectedTaskDesc">Description</h1>
                             <div class="user-task-desc-container">
-                                <p>Study for math exam, 12/11/20. Mix of multiple choice 
-                                    and some writing. Must show all work, clearly 
-                                    visible and legible. 
-                                    <br> <br>
-                                    The quizlet is older 
-                                    and might not have all content. Reference the 
-                                    Desmos for examples and pointers. Textbook is current.
-                                </p>
+                                <p id="clientDesc-Task" contenteditable="true">...</p>
                             </div>
 
 
-                            <h1 id="userSelectedTaskAttach">Attachments</h1>
-                            <div id="user-task-attachments">
-                                
+                            <h1 id="userSelectedTaskAttach">Attachments
+                                <div id="user-task-attachments">
+                                    <div class="user-attachment-markAll"></div>
+                                </div>
+                            </h1>
+
+                            <div class="other-client-options">
+                                <h1>Other options</h1>
+                                <div></div>
+                                <h1 id="dueDateBox">Due date:
+                                    <div id="dueDate" contenteditable="true">Dec. 25</div>
+                                </h1>
+                                <div id="status-box">
+                                    <div id="upcoming" class="tagged-status">Upcoming</div>
+                                    <div id="Doing">Doing</div>
+                                    <div id="Done">Done</div>
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
 

@@ -222,7 +222,7 @@ function clearReminder() {
         button.addEventListener('click', clearReminder)
     
         document.getElementsByClassName('user-content-reminder' + string)[0].style.textDecoration = "line-through #bababa"
-        document.getElementsByClassName('user-content-reminder' + string)[0].style.color = "#dedede"
+        document.getElementsByClassName('user-content-reminder' + string)[0].style.color = "rgb(173 198 202)"
     
         document.getElementsByClassName('clearRemindButton' + string)[0].innerHTML = "Unclear"
     } else {
@@ -234,7 +234,14 @@ function clearReminder() {
         setTimeout(function() {
             document.getElementById('userReminders').removeChild(childToRemove)
             saveClientReminders();
+
+            if (reminderCount() < 4) {
+                document.getElementById('artDots').style.display = "block"
+            } else {
+                document.getElementById('artDots').style.display = "none"
+            }
         }, 599)
+
     }
 
 }
@@ -246,7 +253,7 @@ function clearAllReminders () {
 
     for (i = 0; i < subjects.length; i++) {
         subjects[i].style.textDecoration = "line-through #bababa"
-        subjects[i].style.color = "#dedede"
+        subjects[i].style.color = "rgb(173 198 202)"
     }
 
     var buts = document.getElementsByClassName('bt-mark')
@@ -279,6 +286,8 @@ function unClearReminder (string) {
 function reminderCount () {
     var subjects = document.getElementsByClassName('remind-box')
     var reminderCount = subjects.length
+
+    return reminderCount
 }
 
 //Sort all reminders
@@ -356,10 +365,17 @@ function openAddTaskButton () {
     var bt = document.getElementsByClassName('button-task-add')[0]
     var img = document.getElementById('img-plus-icon')   
     var addBut = document.getElementsByClassName('add-Task-Click')[0]
+    var redAddBut = document.getElementsByClassName('redirect-to-task-page')[0]
   
-    addBut.style.transition = "ease 0.4s"
-    addBut.style.right = '50px'
-    addBut.style.filter = 'opacity(1)'
+    setTimeout(function() {
+        addBut.style.transition = "ease 0.4s"
+        addBut.style.right = '50px'
+        addBut.style.filter = 'opacity(1)'
+    }, 50)
+
+    redAddBut.style.transition = "ease 0.4s"
+    redAddBut.style.right = '170px'
+    redAddBut.style.filter = 'opacity(1)'
 
     bt.style.transition = "ease 0.4s"
     bt.style.border = "1px solid #d4d4d4"
@@ -373,11 +389,16 @@ function closeTaskButton () {
     var bt = document.getElementsByClassName('button-task-add')[0]
     var img = document.getElementById('img-plus-icon')
     var addBut = document.getElementsByClassName('add-Task-Click')[0]
-  
+    var redAddBut = document.getElementsByClassName('redirect-to-task-page')[0]
+
     addBut.style.transition = "ease 0.4s"
     addBut.style.right = null
     addBut.style.filter = null
   
+    redAddBut.style.transition = "ease 0.4s"
+    redAddBut.style.right = null
+    redAddBut.style.filter = null
+
     bt.style.transition = "ease 0.4s"
     bt.style.width = null
     
@@ -487,9 +508,15 @@ function createNewReminder() {
 
     clientRemFinal = divRem
 
-    //console.log(clientRemFinal)
+
 
     bigContRem.insertBefore(clientRemFinal, document.getElementById('artDots'))
+
+    if (reminderCount >= 3) {
+        document.getElementById('artDots').style.display = "none"
+    } else {
+        document.getElementById('artDots').style.display = "block"
+    }
 
     assignRemoveListenersClear ();
     buttonAssign();
@@ -500,3 +527,49 @@ function saveClientReminders () {
     var clientHtml = document.getElementById('userReminders').innerHTML
     localStorage.setItem('clientReminders', clientHtml)
 }
+saveClientReminders()
+
+function setDefaultResetHtml () {
+    var defaultHTML = `                                <div id="reminder1" class="remind-box">
+    <div class="user-content-reminder1 markForAllReminders name"><b>Take out your laundry!</b></div>
+    <button id="clearAllReminders" class="clearRemindButton1 bt-mark" >Clear</button>
+</div>
+
+<div id="artDots">
+    <img class="art-Dots-Svg" src="Imgs/Art/Seagreen/SeagreenDots.svg" alt="">
+</div>`
+
+    document.getElementById('userReminders').innerHTML = defaultHTML
+    saveClientReminders()
+    localStorage.setItem('resetHtml', 'done')
+}
+if (localStorage.getItem('resetHtml') === null) {
+    setTimeout(setDefaultResetHtml, 2000);
+}
+
+
+//END OF REMINDERS FUNCTIONS///////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+// Add a task 
+
+
+
+// CALENDAR API AND GENERATOR CODE:
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementsByClassName('calendar-dashboard-client')[0];
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
