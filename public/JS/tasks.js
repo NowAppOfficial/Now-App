@@ -2,7 +2,11 @@
 
 /* PAGE TRANSITIONS + START AND END FUNCTIONS */
 
+
+
 function toPage (string) {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
     var curtain = document.getElementsByClassName('curtain-transition')[0];
     curtain.style.display = 'block'
@@ -160,26 +164,75 @@ addBut.addEventListener("click", closeTaskButton)
 
 //END//////////////////////////////////////////
 
-
 function animateNewTask (string) {
     var Square = document.getElementById('subCardRow1')
 
-    Square.style.marginTop = null
-    Square.style.opacity = null
+
+    var subject = document.getElementById('userTasks').children
+    for (i = 0; i < subject.length; i++) {
+        subject[i].id = "taskContainer" + [i];
+    }
+
+    var mark =  localStorage.getItem('mark')
+    var target =  localStorage.getItem('target')
+
+    /*
+    console.log(target + ' target')
+    console.log(mark + ' mark')
+*/
+    if (mark < target) {
+        Square.style.animation = "prevCardTask 0.5s cubic-bezier(.44, .63, .66, .99)"
+    } else {
+        Square.style.animation = "nextCardTask 0.5s cubic-bezier(.44, .63, .66, .99)"
+        localStorage.setItem('prevTask',  localStorage.getItem('prevTaskQueue'))
+        localStorage.setItem('prevTaskQueue', mark)
+    }
+
 
     setTimeout(function() {
-        var subject = string.classList[1]
+        var tasks =  document.getElementsByClassName('task-Conts')
+        var taskCont;
+        for (i = 0; i < tasks.length; i++) {
+            if (tasks[i].style.border != "none") {
+                taskCont = tasks[i]
+            }
+        }
+        var subject = taskCont.classList[1]
         var array = (JSON.parse(localStorage.getItem(subject)))
-        console.log(array)
+        //console.log(subject)
 
-        Square.children[0].children[0].innerHTML = array['title']
-        Square.children[4].children[2].children[0].innerHTML = array['due']
+        Square.children[0].children[0].innerHTML = array['title'];
+        Square.children[0].style.backgroundColor = array['status']
 
-        Square.style.marginTop = "0px"
-        Square.style.opacity = "1"
+        //console.log(array['status'])
+        switch(array['status']) {
+            case 'rgb(218, 211, 184)': //Upcoming
+            //console.log('upcoming')
+                Square.children[0].children[0].style.color = 'rgb(165, 155, 114)'
+            break;
+            case 'rgb(225, 230, 168)': //Doing
+            //console.log('doing')
+                Square.children[0].children[0].style.color = 'rgb(157, 160, 109)'
+            break;
+            case 'rgb(203, 227, 198)': // Done
+            //console.log('green')
+                Square.children[0].children[0].style.color = 'green'
+            break;
+        }
 
-        string.style.backgroundColor = array["status"]
-    }, 450)
+        var dueDate =  moment(array['due']).format("YYYY-MM-DD");
+        Square.children[4].children[2].children[1].value = dueDate
+
+        Square.children[2].innerHTML = array['taskDesc']
+
+        //console.log(array)
+
+        //string.style.backgroundColor = array["status"]
+    }, 350)
+
+    setTimeout(function() {
+        Square.style.animation = null
+    }, 500)
 
 
 }
@@ -220,13 +273,13 @@ function addTask (string) {
     // ATTACHMENTS
     var newTaskFiles = document.createElement('div'); newTaskFiles.className = 'task-attachments' 
     var newTaskFilesText = document.createElement('p'); newTaskFilesText.appendChild(document.createTextNode(clientTaskFiles)) 
-    var attachImg = document.createElement('img'); attachImg.src = "Imgs/attach-icons/dark-green.svg"; attachImg.className = "attachment-icon"
+    var attachImg = document.createElement('img'); attachImg.src = "https://img.icons8.com/material-outlined/24/000000/link--v1.png"; attachImg.className = "attachment-icon"
 
     newTaskFiles.appendChild(newTaskFilesText)
     newTaskFiles.insertBefore(attachImg, newTaskFilesText)
 
     // SPACER DIV
-    var spaceDiv = document.createElement('div')
+    var spaceDiv = document.createElement('div'); spaceDiv.style.opacity = "0"; spaceDiv.style.whiteSpace = "nowrap"
 
     // DUE DATE
     var newTaskDue = document.createElement('div'); newTaskDue.id = 'taskDue' + string; newTaskDue.className = "task-due"
@@ -260,8 +313,46 @@ function addTask (string) {
     newTaskCont.click();
 
     document.getElementById('userSelectedTaskTitle').focus()
-    document.getElementById('userSelectedTaskTitle').innerHTML = ""
     document.getElementById('userSelectedTaskTitle').addEventListener('click', clearPlaceHolder)
+
+    setTimeout(function() {
+        document.getElementById('userSelectedTaskTitle').innerHTML = ""
+    }, 500)
+}
+//DELTE A TASK
+
+document.getElementsByClassName('trash-task-icon-container')[0].addEventListener('click', function() {
+    var tasks =  document.getElementsByClassName('task-Conts')
+    var taskCont;
+    for (i = 0; i < tasks.length; i++) {
+        if (tasks[i].style.border != "none") {
+            taskCont = tasks[i]
+        }
+    }
+
+    var string = taskCont
+    //console.log(string)
+    delteTaskCurrent(string);
+})
+
+function delteTaskCurrent (string) {
+    var targetCont = document.getElementById('userTasks') 
+    targetCont.removeChild(string)
+
+    autoSaveTasks();
+
+    var id = parseInt(string.id.slice(string.id.length - 1))
+    console.log(id)
+
+    if (targetCont.children.length > 0) {
+        setTimeout(function() {
+            targetCont.children[(id)].click()
+            console.log('clicked:' + targetCont.children[id])
+        }, 0)
+    } else {
+        return;
+    }
+
 }
 
 // CLEAR PLACEHOLDER
@@ -283,26 +374,133 @@ function clearPlaceHolder () {
            
         }
     }
+    
+    if (document.getElementById('userTasks').children.length > 0) {
+
+    } else {
+        addTask(2);
+    }
 
 }
 
+// STATUS UPDATES AND CHANGES BY CLIENT:
 
+function updateClientTaskStatus(string) {
+    var tasks =  document.getElementsByClassName('task-Conts')
+    var taskCont;
+    for (i = 0; i < tasks.length; i++) {
+        if (tasks[i].style.border != "none") {
+            taskCont = tasks[i]
+        }
+    }
+
+    switch(string) {
+        case 'Upcoming':
+            taskCont.style.border = 'solid rgb(165, 155, 114)'
+            taskCont.style.backgroundColor = 'rgb(218 211 184)'
+            taskCont.lastChild.style.backgroundColor = 'rgb(230, 222, 186)'
+
+            taskCont.lastChild.innerHTML = string
+            taskCont.lastChild.style.color = '#a59b72'
+        break;
+
+        case 'Doing':
+            taskCont.style.border = 'solid rgb(179 183 118)'
+            taskCont.style.backgroundColor = '#E1E6A8'
+            taskCont.lastChild.style.backgroundColor = 'rgb(238 241 194)'
+
+            taskCont.lastChild.innerHTML = string
+            taskCont.lastChild.style.color = 'rgb(157 160 109)'
+        break;
+
+        case 'Done':
+            taskCont.style.border = 'solid rgb(141 179 131)'
+            taskCont.style.backgroundColor = '#CBE3C6'
+            taskCont.lastChild.style.backgroundColor = 'rgb(223 241 219)'
+
+            taskCont.lastChild.innerHTML = string
+            taskCont.lastChild.style.color = 'green'
+            break;
+    }
+    autoSaveTasks();
+    createArrays(taskCont)
+
+    setTimeout(function() {
+        animateNewTask()
+    }, 100)
+}
+document.getElementById('select-status').addEventListener('change', function() {
+    var status = document.getElementById('select-status').value
+    //console.log(status)
+    updateClientTaskStatus(status)
+})
+
+function updateClientDueDate (date) {
+    var tasks =  document.getElementsByClassName('task-Conts')
+    var taskCont;
+    for (i = 0; i < tasks.length; i++) {
+        if (tasks[i].style.border != "none") {
+            taskCont = tasks[i]
+        }
+    }
+    taskCont.children[3].innerHTML = date
+
+    createArrays(taskCont)
+    autoSaveTasks();
+}
+document.getElementById('dueDate').addEventListener('change', function() {
+    var dueDate = document.getElementById('dueDate').value
+    var readable =  moment(dueDate).format("MMM D YYYY");
+    console.log(readable)
+    updateClientDueDate(readable)
+})
+//////////////////////////////////
+//ATTACHMENTS IDLE ANIMATION
+
+function animateUploadButton (string) {
+    var subject = document.getElementsByClassName('upload-icon-container')[0];
+
+    if (string == 'yes') {
+        subject.children[0].style.animation = 'upload-bounce-tease 1.1s ease-in-out infinite'
+    } else {
+        subject.children[0].style.animation = null
+    }
+}
+/*
+
+FilePond.registerPlugin(FilePondPluginImagePreview);
+FilePond.create(
+    document.getElementById('filePondAttatchments'),
+    {
+        imagePreviewMaxHeight: 90,
+    }
+  );
+  FilePond.setOptions({
+    server: 'http://localhost:8888/Imgs/Server'
+});
+
+const pond = document.querySelector('.filepond--root');
+pond.addEventListener('FilePond:updatefiles', e => {
+    console.log('File added', e.detail);
+});
+*/
+
+document.getElementsByClassName('upload-icon-container')[0].addEventListener('click', function() {
+    this.style.opacity = '0'
+
+    var sdsds = this
+
+    setTimeout(function () {
+        document.getElementById('file-upload-container').style.display ='block'
+        //document.getElementsByClassName('filepond--label-action')[0].click()
+        sdsds.style.zIndex = '-2'
+    }, 300);
+})
 
 
 
 function updateEditedTask () {
-    var subjects = document.getElementById('userTasks').children[0].children
-    //console.log(subjects)
-
-    if (subjects.length == 5) {
-        subjects[0].innerHTML = document.getElementById('userSelectedTaskTitle').innerHTML
-    }
-
-        // Number 13 is the "Enter" key on the keyboard
-    autoSaveTasks ();
-
     var taskCont;
-
     var tasks =  document.getElementsByClassName('task-Conts')
 
     for (i = 0; i < tasks.length; i++) {
@@ -310,10 +508,18 @@ function updateEditedTask () {
             taskCont = tasks[i]
         }
     }
+    createArrays(taskCont);
     
 
+    var subjects = taskCont.children
+    if (subjects.length == 5) {
+        subjects[0].innerHTML = document.getElementById('userSelectedTaskTitle').innerHTML
+        subjects[2].innerHTML = document.getElementById('clientDesc-Task').innerHTML
+    }
+    //console.log(subjects[2])
 
-    createArrays(taskCont);
+        // Number 13 is the "Enter" key on the keyboard
+    autoSaveTasks ();
 }
 
 function autoSaveTasks () {
@@ -329,10 +535,12 @@ function loadSavedTasks () {
         var subject = document.getElementById('userTasks');
         subject.innerHTML = localStorage.getItem('clientTasksHtml')
 
-        var subjectExpand = document.getElementById('subCardRow1')
-        subjectExpand.innerHTML = localStorage.getItem('clientTasksAdvancedHtml')
     } else {
         autoSaveTasks();
+        setTimeout(function() {
+            document.getElementsByClassName('trash-task-icon-container')[0].click()
+            document.getElementsByClassName('add-Task-Click')[0].click()
+        }, 500)
     }
 
 
@@ -342,12 +550,11 @@ loadSavedTasks();
 
 
 function clearHtmlReset() {
-    var subject = document.getElementById('userTasks');
-    subject.innerHTML = ''
     autoSaveTasks();
 }
 
 function blurAllFocusedTasks () {
+
     var subjects = document.getElementsByClassName('task-Conts')
 
     for (i = 0; i < subjects.length; i++) {
@@ -362,13 +569,36 @@ blurAllFocusedTasks();
 function focusTask () {
     var subjects = document.getElementsByClassName('task-Conts')
 
+    for (s = 0; s < subjects.length; s++) {
+        if (subjects[s].style.border != "none") {
+            localStorage.setItem('mark', subjects[s].id.slice(subjects[s].id.length - 1))
+        }
+    }
+
     for (i = 0; i < subjects.length; i++) {
         subjects[i].style.border = "none"
         subjects[i].style.transition = "none"
     }
 
-    this.style.transition = "ease 0.05s"
-    this.style.border = "solid #a59b72"
+    switch(this.style.backgroundColor) {
+        default: 
+        this.style.border = 'solid rgb(165, 155, 114)'
+        break;
+        case 'rgb(218, 211, 184)':
+            this.style.border = 'solid rgb(165, 155, 114)'
+        break;
+
+        case 'rgb(225, 230, 168)':
+            this.style.border = 'solid rgb(179 183 118)'
+        break;
+
+        case 'rgb(203, 227, 198)':
+            this.style.border = 'solid rgb(141 179 131)'
+            break;
+    }
+
+
+    localStorage.setItem('target', this.id.slice(this.id.length - 1))
 }
 
 
@@ -392,7 +622,6 @@ document.getElementById('subCardRow1').addEventListener('mouseenter', function()
 })
 
 function createArrays (string) {
-
     try {
         this.classList.contains('task-Conts')
 
@@ -404,13 +633,15 @@ function createArrays (string) {
             var title = this.children[0].innerHTML
             var attachments = this.children[1].children[1].innerHTML
             var dueDate = this.children[3].innerHTML
-            var status = this.children[4].style.backgroundColor
-            //console.log(status)
+            var status = this.style.backgroundColor
+            var taskDesc = this.children[2].innerHTML
+
             var array = {
                 "title": title,
                 "attachments":  attachments,
                 "due" : dueDate,
                 "status" : status,
+                "taskDesc" : taskDesc,
             }
     
             if (this.classList.contains('marked-already')) {
@@ -439,25 +670,27 @@ function createArrays (string) {
         })
     }
     catch(err) {
-        //console.log(string)
+
             // CREATE DATA ARRAY
             var title = string.children[0].innerHTML
             var attachments = string.children[1].children[1].innerHTML
             var dueDate = string.children[3].innerHTML
-            var status = string.children[4].style.backgroundColor
+            var status = string.style.backgroundColor
+            var taskDesc = string.children[2].innerHTML
             //console.log(status)
             var array = {
                 "title": title,
                 "attachments":  attachments,
                 "due" : dueDate,
                 "status" : status,
+                "taskDesc" : taskDesc,
             }
-    
+
             if (string.classList.contains('marked-already')) {
                 var alreadyNum = string.classList[1]
     
                 localStorage.setItem(alreadyNum, JSON.stringify(array))
-                //console.log(dueDate)
+                //console.log(array)
             }
     }
 
@@ -476,3 +709,9 @@ function addEventListenersForTasksArrays () {
     document.getElementById('clientDesc-Task').addEventListener('click', clearPlaceHolder)
 }
 addEventListenersForTasksArrays();
+
+if (document.getElementById('userTasks').children.length > 0) {
+    if (localStorage.getItem('taskToFocusOnLoad')) {
+        document.getElementById(localStorage.getItem('taskToFocusOnLoad')).click()
+    }
+}

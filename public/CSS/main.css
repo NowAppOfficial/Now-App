@@ -1,4 +1,6 @@
-
+html {
+    scroll-behavior: smooth;
+}
 
 
 #pageTopContainer {
@@ -108,6 +110,7 @@
 
     width: 163%;
     z-index: -1;
+    filter: opacity(0);
 }
 
 #dashboardNavText {
@@ -121,6 +124,7 @@
     font-size: 14px;
 
     z-index: 2;
+    filter: opacity(0);
 }
 
 #dashboardIconContainer {
@@ -200,7 +204,7 @@
 
     color: #404040;
 
-    margin: auto auto 25px 65px;
+    margin: auto auto -30px 65px;
 }
 
 #grayContent > div > h1 {
@@ -375,6 +379,7 @@
 
 #mainCardRow1 {
     grid-area: 1 / 1 / 2 / 2;
+    height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -414,7 +419,7 @@
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, auto);
+    grid-template-rows: repeat(6, 56px);
     grid-column-gap: 0px;
     grid-row-gap: 10px;
 
@@ -424,14 +429,100 @@
     /* transform: translateX(-50%);*/
 
     width: calc(100% - 60px);
-    height: calc(100% - 25px);
+    height: 100%;
 }
 #userTasks > div {
     background-color: #e1e9ea;
     border-radius: 11px;
 }
+#userTasks > div {
+
+    display: grid;
+    grid-template-columns: 5fr 1fr 3fr 4fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    transition: ease 0.2s;
+
+    border: none !important;
+}
+#userTasks > div:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.055);
+}
+#userTasks > div > h1 > div > br {
+    display: none;
+}
+.task-Conts {
+    background-color: #F0F0F0;
+}
+.task-Conts > h1 {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+
+    margin: auto;
+    margin-left: 30px;
+
+    color: #555555;
+} 
+.task-Conts > div{
+    font-family: 'Barlow', sans-serif;
 
 
+    min-height: 0;
+    min-width: 0;
+}
+.task-due {
+    font-weight: 600;
+    color: rgb(90, 90, 90);
+    margin: auto 25px auto auto;
+    text-decoration: underline solid 1px rgba(90, 90, 90, 0.521);
+}
+.task-due:hover {
+    cursor: pointer;
+    transition: cubic-bezier(.31, .05, .98, .94) 0.1s;
+    text-decoration: underline solid 1px rgb(90, 90, 90);
+}
+#taskStatus2 {
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 58px; 
+
+    border-radius: 0 11px 11px 0;
+
+    font-weight: 700;
+}
+.task-attachments {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+/*file icon*/
+.attachment-icon {
+    grid-area: 1 / 1 / 2 / 2;
+    margin: auto auto auto auto;
+    width: 30px;
+
+}
+.task-attachments > p{
+    margin: auto auto auto auto;
+    grid-area: 1 / 2 / 2 / 3;
+
+    font-weight: 600;
+
+    color: rgb(90, 90, 90);
+}
+.task-attachments > p:hover, .attachment-icon:hover {
+    cursor: pointer;
+    transition: cubic-bezier(.31, .05, .98, .94) 0.1s;
+    text-decoration: underline solid 1px rgb(88, 150, 88);
+}
 
 
 
@@ -533,6 +624,13 @@
     box-shadow: 1px 1px 20px rgb(58 58 58 / 9%);
     border: solid #cfe0e2;
 }
+@media screen and (max-width: 900px) {
+    .curtain-transition {
+        display:   block !important;
+        filter: opacity(1) !important;
+        z-index: 100 !important;
+    }
+}
 @media screen and (max-width: 1565px) {
     #subCardRow1 {
         width: 100%;
@@ -541,6 +639,28 @@
         width: 96%;
     }
 }
+@media screen and (min-width: 1565px) {
+    #grayContent {
+        width: 1530px;
+    }
+}
+#verticalBubblesDots {
+    display: none;
+    position: absolute;
+
+    top: 150px;
+    right: 50px;
+
+    height: 50%;
+
+    margin: 40px;
+}
+@media screen and (min-width: 1799px) {
+    #verticalBubblesDots {
+        display: block;
+    }
+}
+
 .remind-box > div {
     font-family: 'Barlow', sans-serif;
     font-size: 20px;
@@ -611,7 +731,7 @@
     position: relative;
 
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     grid-column-gap: 35px;
     grid-row-gap: 0px;
@@ -619,7 +739,7 @@
     left: 65px;
 
     width: calc(100% - 130px);
-    height: 100%;
+    height: 120%;
 }
 
 #mainCardRow2 {
@@ -634,28 +754,26 @@
 
 #subCardRow2 {
     position: relative;
-    grid-area: 1 / 2 / 2 / 3;
     width: 100%;
-
+    height: 88%;
     transition: cubic-bezier(.31, .05, .98, .94) 0.2s;
-
     border-radius: 15px;
     background-color: rgb(224, 232, 232);
     border: solid #ccdede;
 }
-.calendar-dashboard-client {
+#caleandar {
+    position: relative;
+    margin: 10px 30px 30px 30px;
+}
+.calendar-container-dashboard {
     position: absolute;
     width: calc(100% - 60px);
-    height: calc(100% - 60px);
-
+    height: 100%;
     top: 0;
     left: 0;
-
-    margin: 30px;
-
-
+    margin: 5px 30px 0px 30px;
 }
-.calendar-dashboard-client > * {
+#caleandar > * {
     font-family: 'Barlow', sans-serif;
 }
 .calendar-dashboard-client > div > div > h2 {

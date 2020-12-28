@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasks</title>
-
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     <link rel="stylesheet" href="public/CSS/tasks.css" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/weo2jia.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -54,16 +55,17 @@
 
                         <div class="task-view-options-cont"></div>
 
-                        <div class="cont-task-add-button">
-                            <button class='button-task-add'>
-                                <img id="img-plus-icon"  src="https://img.icons8.com/metro/26/000000/plus-math.png"/>
-                            </button>
-                            <button class="add-Task-Click">Add Task</button>
-                        </div>
                     </div>
 
                     <div id="row1">
                         <div id="mainCardRow1" class="row1">
+
+                            <div class="cont-task-add-button">
+                                <button class='button-task-add'>
+                                    <img id="img-plus-icon"  src="https://img.icons8.com/metro/26/000000/plus-math.png"/>
+                                </button>
+                                <button class="add-Task-Click">Add Task</button>
+                            </div>
 
                             <div id="mainCardRow1ViewOptions">
                                 <div></div>
@@ -72,11 +74,10 @@
 
                             <div id="userTasks">
 
-                                <div id="taskContainer1" class="task-Conts">
-                                    <h1 id="taskTitle1"><b>Study</b> for my <b>upcoming exam</b></h1>
+                                <div id="taskContainer1" class="task-Conts" style="filter: opacity(0);">
+                                    <h1 id="taskTitle1"></h1>
                                     <div class="task-attachments">
-                                        <img src="Imgs/attach-icons/dark-green.svg" alt="" class="attachment-icon"/>
-                                        <p>3</p>
+                                        <img class="attachment-icon" src="https://img.icons8.com/material-outlined/24/000000/link--v1.png"/>                                        <p>3</p>
                                     </div>
                                     <div></div>
                                     <div id="taskDue1" class="task-due">Dec. 20</div>
@@ -94,27 +95,48 @@
 
 
                             <h1 id="userSelectedTaskDesc">Description</h1>
-                            <div class="user-task-desc-container">
-                                <p id="clientDesc-Task" contenteditable="true">...</p>
-                            </div>
+                            <p id="clientDesc-Task" contenteditable="true">...</p>
+
 
 
                             <h1 id="userSelectedTaskAttach">Attachments
                                 <div id="user-task-attachments">
                                     <div class="user-attachment-markAll"></div>
                                 </div>
+                                <div id="file-upload-container">
+                                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                                        Select image to upload:
+                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <input type="submit" value="Upload Image" name="submit">
+                                      </form>
+                                    <!--<input id="filePondAttatchments" type="file" class="filepond" multiple data-max-files="3">-->
+                                </div>
+                                <div class="upload-icon-container" onmouseenter="animateUploadButton('yes')" onmouseleave="animateUploadButton('no')">
+                                    <svg id="upload-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"width="24" height="24"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#a59b72"><path d="M86,20.99609l-50.67057,50.67057l10.75,10.75l32.75391,-32.75391v100.83724h14.33333v-100.83724l32.7539,32.75391l10.75,-10.75z"></path></g></g></svg>                                
+                                </div>
                             </h1>
 
                             <div class="other-client-options">
                                 <h1>Other options</h1>
                                 <div></div>
-                                <h1 id="dueDateBox">Due date:
-                                    <div id="dueDate" contenteditable="true">Dec. 25</div>
-                                </h1>
+                                <div id="dueDateBox">
+                                    <h1>Due date:</h1>
+                                    <input type="date" id="dueDate" value="2020-12-25"></input>
+                                </div>
                                 <div id="status-box">
-                                    <div id="upcoming" class="tagged-status">Upcoming</div>
-                                    <div id="Doing">Doing</div>
-                                    <div id="Done">Done</div>
+                                    <h1>Status</h1>
+                                    <select name="status" id="select-status">
+                                        <option id="...">...</option>
+                                        <option id="upcoming" class="tagged-status">Upcoming</option>
+                                        <option id="Doing">Doing</option>
+                                        <option id="Done">Done</option>
+                                    </select>
+                                </div>
+                                <div class="taskManagement-box">
+                                    <div class="trash-task-icon-container">
+                                        <svg id="trash-can-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"width="30" height="30"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#a59b72"><path d="M72.24,6.88c-5.66037,0 -10.32,4.65964 -10.32,10.32v6.88h-26.98922c-0.19315,-0.03228 -0.3887,-0.04802 -0.58453,-0.04703c-0.16665,0.00361 -0.33282,0.01933 -0.49719,0.04703h-6.32906c-1.24059,-0.01754 -2.39452,0.63425 -3.01993,1.7058c-0.62541,1.07155 -0.62541,2.39684 0,3.46839c0.62541,1.07155 1.77935,1.72335 3.01993,1.7058h3.44v123.84c0,5.66037 4.65963,10.32 10.32,10.32h89.44c5.66037,0 10.32,-4.65963 10.32,-10.32v-123.84h3.44c1.24059,0.01754 2.39452,-0.63425 3.01993,-1.7058c0.62541,-1.07155 0.62541,-2.39684 0,-3.46839c-0.62541,-1.07155 -1.77935,-1.72335 -3.01993,-1.7058h-6.30219c-0.37149,-0.0614 -0.75054,-0.0614 -1.12203,0h-26.97578v-6.88c0,-5.66036 -4.65963,-10.32 -10.32,-10.32zM72.24,13.76h27.52c1.90763,0 3.44,1.53236 3.44,3.44v6.88h-34.4v-6.88c0,-1.90764 1.53237,-3.44 3.44,-3.44zM37.84,30.96h26.94219c0.37149,0.0614 0.75054,0.0614 1.12203,0h40.15797c0.37149,0.0614 0.75054,0.0614 1.12203,0h26.97578v123.84c0,1.90763 -1.53237,3.44 -3.44,3.44h-89.44c-1.90763,0 -3.44,-1.53237 -3.44,-3.44zM65.30625,48.11297c-1.89722,0.02966 -3.41223,1.58976 -3.38625,3.48703v86c-0.01754,1.24059 0.63425,2.39452 1.7058,3.01993c1.07155,0.62541 2.39684,0.62541 3.46839,0c1.07155,-0.62541 1.72335,-1.77935 1.7058,-3.01993v-86c0.01273,-0.92983 -0.35149,-1.82522 -1.00967,-2.48214c-0.65819,-0.65692 -1.55427,-1.01942 -2.48408,-1.00489zM85.94625,48.11297c-1.89722,0.02966 -3.41223,1.58976 -3.38625,3.48703v86c-0.01754,1.24059 0.63425,2.39452 1.7058,3.01993c1.07155,0.62541 2.39684,0.62541 3.46839,0c1.07155,-0.62541 1.72335,-1.77935 1.7058,-3.01993v-86c0.01273,-0.92983 -0.35149,-1.82522 -1.00967,-2.48214c-0.65819,-0.65692 -1.55427,-1.01942 -2.48408,-1.00489zM106.58625,48.11297c-1.89722,0.02966 -3.41223,1.58976 -3.38625,3.48703v86c-0.01754,1.24059 0.63425,2.39452 1.7058,3.01993c1.07155,0.62541 2.39684,0.62541 3.46839,0c1.07155,-0.62541 1.72335,-1.77935 1.7058,-3.01993v-86c0.01273,-0.92983 -0.35149,-1.82522 -1.00967,-2.48214c-0.65819,-0.65692 -1.55427,-1.01942 -2.48408,-1.00489z"></path></g></g></svg>
+                                    </div>
+                                    <div class="archive-task-icon-container"></div>
                                 </div>
                             </div>
 
@@ -132,5 +154,9 @@
     </div>
 
 </body>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
+</script>
 <script src="public/JS/tasks.js"></script>
 </html>

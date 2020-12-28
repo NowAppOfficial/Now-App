@@ -50,7 +50,8 @@ function unsupportedUserBrowser (string) {
 /* PAGE TRANSITIONS + START AND END FUNCTIONS */
 
 function toPage (string) {
-
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
    var curtain = document.getElementsByClassName('curtain-transition')[0];
    curtain.style.display = 'block'
@@ -87,7 +88,7 @@ function toPage (string) {
 function startPage () {
    var curtain = document.getElementsByClassName('curtain-transition')[0];
 
-   curtain.style.zIndex = '2'
+   curtain.style.zIndex = '5'
 
 
    var pageInd = document.getElementById('invertNav')
@@ -563,13 +564,57 @@ if (localStorage.getItem('resetHtml') === null) {
 
 // CALENDAR API AND GENERATOR CODE:
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+var events = [
+    {'Date': new Date(2016, 6, 7), 'Title': 'Doctor appointment at 3:25pm.'},
+    {'Date': new Date(2016, 6, 18), 'Title': 'New Garfield movie comes out!', 'Link': 'https://garfield.com'},
+    {'Date': new Date(2016, 6, 27), 'Title': '25 year anniversary', 'Link': 'https://www.google.com.au/#q=anniversary+gifts'},
+];
 
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementsByClassName('calendar-dashboard-client')[0];
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
-    calendar.render();
-  });
+var settings = {
+    Color: '',
+    LinkColor: '',
+    NavShow: true,
+    NavVertical: false,
+    NavLocation: '',
+    DateTimeShow: true,
+    DateTimeFormat: 'mmm, yyyy',
+    DatetimeLocation: '',
+    EventClick: '',
+    EventTargetWholeDay: false,
+    DisabledDays: [],
+
+};
+
+var element = document.getElementById('caleandar');
+caleandar(element, events, settings);
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// LOAD TASKS ONTO DASHBOARD:
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function loadTasksFromTaskPage () {
+
+    if (localStorage.getItem('clientTasksHtml')) {
+        var tasks = document.getElementById('userTasks')
+        tasks.innerHTML = localStorage.getItem('clientTasksHtml')
+    }
+
+}
+loadTasksFromTaskPage();
+
+function assignClicksForTasks () {
+    var subjects = document.getElementsByClassName('task-Conts')
+    for (i = 0; i < subjects.length; i++) {
+        subjects[i].addEventListener('click', toTaskPageFocus)
+    }
+}
+assignClicksForTasks();
+
+function toTaskPageFocus() {
+    localStorage.setItem('taskToFocusOnLoad', this.id)
+    toPage('tasks');
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
