@@ -1,5 +1,6 @@
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 
@@ -766,4 +767,48 @@ html {
 @keyframes heightReverseInd {
     from {height: 163%; width: 163%; bottom: 39px;}
     to {height: 50%; width: 50%; bottom: -240px;}
+}
+
+.iframe-filePreview-Container {
+    display: none;
+
+    position: absolute;
+    top: -150px;
+
+    height: calc(100% + 140px);
+    width: 100%;
+
+    margin: 0px;
+
+    border-radius: 8px;
+    background-color: rgba(128, 128, 128, 0.26) !important;
+
+    z-index: 1000;
+}
+.iframe-filePreview-Container > div {
+    width: calc(100% - 200px); 
+    height: calc(100% - 200px); 
+
+    margin: 100px;
+
+    position: absolute;
+
+    background-color: rgb(128, 128, 128);
+    border: 3px rgba(0, 0, 0, 0) solid;
+    border-radius: 5px;
+
+    z-index: -2;
+}
+.display-user-file-preview {
+    z-index: 1000;
+
+    width: calc(100% - 200px); 
+    height: calc(100% - 200px); 
+
+    margin: 100px;
+
+    border-radius: 5px;
+    border: 3px rgb(0, 0, 0) solid;
+    
+    object-fit: contain;
 }

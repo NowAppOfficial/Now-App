@@ -3,7 +3,6 @@
 /* PAGE TRANSITIONS + START AND END FUNCTIONS */
 
 
-
 function toPage (string) {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -203,6 +202,14 @@ function animateNewTask (string) {
 
         Square.children[0].children[0].innerHTML = array['title'];
         Square.children[0].style.backgroundColor = array['status']
+
+        var attachments = array['urls']['filestack'].length
+        document.getElementById('file-uploads-container').innerHTML = ""
+
+        for(i = 1; i < attachments; i++) {
+            var list = document.createElement('a'); list.innerHTML = 'UserAttach'; list.href = array['urls']['filestack'][i]['url']
+            document.getElementById('file-uploads-container').appendChild(list) 
+        }
 
         //console.log(array['status'])
         switch(array['status']) {
@@ -485,13 +492,50 @@ pond.addEventListener('FilePond:updatefiles', e => {
 });
 */
 
+
+const client = filestack.init('ALxoEda6VQ76Ilj7wYtGEz');
+
+const options = {
+    onUploadDone: file => {
+
+        setTimeout(function(){     
+            
+            if(typeof (file['filesUploaded'][0]['url']) !== "undefined"){
+                console.log(file)
+                var urlFile = file['filesUploaded'][0]['url']
+                console.log(urlFile)
+                
+                var TEMPurlsClient = '[]'
+                localStorage.setItem('TEMPurlsClient',  urlFile)
+                console.log(TEMPurlsClient)
+    
+                var tasks =  document.getElementsByClassName('task-Conts');
+                var taskCont;
+                for (i = 0; i < tasks.length; i++) {
+                    if (tasks[i].style.border != "none") {
+                        taskCont = tasks[i]
+                    }
+                }
+    
+                createArrays(taskCont)
+                setTimeout(function() {
+                    var lol =  returnFocusedTaskPlease()
+                    animateNewTask(lol)
+                }, 500)
+            }
+        }, 200)
+
+    }
+};
+
+
+
+
 document.getElementsByClassName('upload-icon-container')[0].addEventListener('click', function() {
     this.style.opacity = '0'
-
     var sdsds = this
-
+    client.picker(options).open();
     setTimeout(function () {
-        document.getElementById('file-upload-container').style.display ='block'
         //document.getElementsByClassName('filepond--label-action')[0].click()
         sdsds.style.zIndex = '-2'
     }, 300);
@@ -632,13 +676,30 @@ function createArrays (string) {
             // CREATE DATA ARRAY
             var title = this.children[0].innerHTML
             var attachments = this.children[1].children[1].innerHTML
+
+            var urls = '{"filestack":[{}]}'
+            urls = JSON.parse(urls)
+
+            var focused =  returnFocusedTaskPlease();
+            if (this.classList.contains('marked-already')) {
+                var prev =  JSON.parse(localStorage.getItem(focused.classList[1]))
+
+                if (prev['urls']) {
+                    if (prev['urls']['filestack'].length > 0) {
+                        urls['filestack'].push({ 'url' : localStorage.getItem('TEMPurlsClient')})
+                    } else {
+                        urls['filestack'].push({ 'url' : localStorage.getItem('TEMPurlsClient')})
+                    }
+                }
+            }
+
             var dueDate = this.children[3].innerHTML
             var status = this.style.backgroundColor
             var taskDesc = this.children[2].innerHTML
 
             var array = {
                 "title": title,
-                "attachments":  attachments,
+                urls,
                 "due" : dueDate,
                 "status" : status,
                 "taskDesc" : taskDesc,
@@ -673,24 +734,45 @@ function createArrays (string) {
 
             // CREATE DATA ARRAY
             var title = string.children[0].innerHTML
-            var attachments = string.children[1].children[1].innerHTML
+
+            var attachments = string.children[1].children[1].innerHTML;
+
+           var urls = '{"filestack":[{}]}'
+           urls = JSON.parse(urls)
+
+            var focused =  returnFocusedTaskPlease();
+            if (string.classList.contains('marked-already')) {
+                var prev =  JSON.parse(localStorage.getItem(focused.classList[1]))
+
+                if (prev['urls']) {
+                    if (prev['urls']['filestack'].length > 0) {
+                        urls['filestack'].push({ 'url' : localStorage.getItem('TEMPurlsClient')})
+                    } else {
+                        urls['filestack'].push({ 'url' : localStorage.getItem('TEMPurlsClient')})
+                    }
+                }
+            }
+            
             var dueDate = string.children[3].innerHTML
             var status = string.style.backgroundColor
             var taskDesc = string.children[2].innerHTML
             //console.log(status)
             var array = {
                 "title": title,
-                "attachments":  attachments,
+                urls,
                 "due" : dueDate,
                 "status" : status,
                 "taskDesc" : taskDesc,
             }
 
+            
+            
+
             if (string.classList.contains('marked-already')) {
                 var alreadyNum = string.classList[1]
     
                 localStorage.setItem(alreadyNum, JSON.stringify(array))
-                //console.log(array)
+
             }
     }
 
@@ -714,4 +796,18 @@ if (document.getElementById('userTasks').children.length > 0) {
     if (localStorage.getItem('taskToFocusOnLoad')) {
         document.getElementById(localStorage.getItem('taskToFocusOnLoad')).click()
     }
+}
+
+
+function returnFocusedTaskPlease () {
+    var taskCont;
+    var tasks =  document.getElementsByClassName('task-Conts')
+
+    for (i = 0; i < tasks.length; i++) {
+        if (tasks[i].style.border != "none") {
+            taskCont = tasks[i]
+        }
+    }
+
+    return taskCont;
 }

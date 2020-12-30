@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasks</title>
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     <link rel="stylesheet" href="public/CSS/tasks.css" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/weo2jia.css">
+    <link href="https://releases.transloadit.com/uppy/v1.24.0/uppy.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -49,6 +48,12 @@
 
         <section>
             <div id="graySection">
+
+                <div class="iframe-filePreview-Container">
+                    <div></div>
+                    <img class="display-user-file-preview" src=""></img>
+                </div>
+
                 <div id="grayContent">
                     <div id="title-view-options">
                         <h1 id="mainTitle">Tasks</h1>
@@ -58,6 +63,7 @@
                     </div>
 
                     <div id="row1">
+
                         <div id="mainCardRow1" class="row1">
 
                             <div class="cont-task-add-button">
@@ -103,14 +109,9 @@
                                 <div id="user-task-attachments">
                                     <div class="user-attachment-markAll"></div>
                                 </div>
-                                <div id="file-upload-container">
-                                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                                        Select image to upload:
-                                        <input type="file" name="fileToUpload" id="fileToUpload">
-                                        <input type="submit" value="Upload Image" name="submit">
-                                      </form>
-                                    <!--<input id="filePondAttatchments" type="file" class="filepond" multiple data-max-files="3">-->
+                                <div id="file-uploads-container">
                                 </div>
+
                                 <div class="upload-icon-container" onmouseenter="animateUploadButton('yes')" onmouseleave="animateUploadButton('no')">
                                     <svg id="upload-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"width="24" height="24"viewBox="0 0 172 172"style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#a59b72"><path d="M86,20.99609l-50.67057,50.67057l10.75,10.75l32.75391,-32.75391v100.83724h14.33333v-100.83724l32.7539,32.75391l10.75,-10.75z"></path></g></g></svg>                                
                                 </div>
@@ -141,6 +142,7 @@
                             </div>
 
 
+
                         </div>
                     </div>
 
@@ -153,10 +155,11 @@
         <div class="loading-for-user"></div>
     </div>
 
+
+
 </body>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
-</script>
+<script src="https://releases.transloadit.com/uppy/v1.24.0/uppy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script src="public/JS/tasks.js"></script>
 </html>
