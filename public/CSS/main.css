@@ -537,9 +537,9 @@ html {
     grid-row-gap: 0px;
     transition: cubic-bezier(.31, .05, .98, .94) 0.2s;
     /* margin-right: 100px; */
-    background-color: #ebf2f3;
+    /* background-color: #ebf2f3; */
     border-radius: 15px;
-    border: #e1ebed solid;
+    /* border: #e1ebed solid; */
     /*box-shadow: 1px 0px 19px #dae7e8;*/
 }
 #subCardRow1:hover {
@@ -590,14 +590,14 @@ html {
     grid-area: 2 / 1 / 3 / 2;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
-    grid-row-gap: 5px;
+    grid-row-gap: 10px;
     position: relative;
     left: 30px;
     /* transform: translateX(-50%); */
     width: calc((100% - 30px) + 52px);
-    height: 94%;
+    height: 362px;
 }
 #reminder1 {
     top: 0px;
@@ -611,18 +611,18 @@ html {
 
 .remind-box{
     /* position: absolute; */
-    height: 60px;
+    height: 100%;
     width: 100%;
     /* top: 10px; */
-    background-color: #dceaea;
+    background-color: #dce9ea6b;
     border-radius: 7px;
     display: grid;
     grid-template-columns: 4fr 1.5fr;
     grid-template-rows: 1fr;
     /*animation: clearReminderSlide 0.6s cubic-bezier(.23, .50, .83, .62);
     animation-delay: 900ms;*/
-    box-shadow: 1px 1px 20px rgb(58 58 58 / 9%);
-    border: solid #cfe0e2;
+    /* box-shadow: 1px 1px 20px rgb(58 58 58 / 9%); */
+    /* border: solid #cfe4d9; */
 }
 @media screen and (max-width: 900px) {
     .curtain-transition {
@@ -664,10 +664,8 @@ html {
 .remind-box > div {
     font-family: 'Barlow', sans-serif;
     font-size: 20px;
-    font-weight: 400;
-
-    color: #496465;
-
+    font-weight: 500;
+    color: #609898;
     margin: auto auto auto 25px;
 }
 .remind-box > button {
@@ -695,6 +693,15 @@ html {
 
     transform: translateY(2px);
     transition: cubic-bezier(.31, .05, .98, .94) 0.1s;
+}
+@keyframes createNewAndDisplay {
+    0% { transform:      translateX(-80px); filter: opacity(0);}
+    30%  { transform:   translateX(-40px); filter: opacity(0.5);}
+
+    50% { transform:    translateX(-10px); filter: opacity(1);}
+
+    70%  { transform:   translateX(0px); filter: opacity(1);}
+    100% { transform:    translateX(0px); filter: opacity(1);}
 }
 @keyframes clearReminderSlide {
     0% { transform:      translateX(0); filter: opacity(1);}

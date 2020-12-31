@@ -11,12 +11,12 @@ function toPage (string) {
     curtain.style.display = 'block'
 
     curtain.style.zIndex = '5'
-    curtain.style.animation = 'height 0.6s cubic-bezier(.35, .76, .65, 1)'
+    curtain.style.animation = 'height 0.4s cubic-bezier(.35, .76, .65, 1)'
 
     setTimeout(function() {
         curtain.style.filter = null
         window.location.href = string + ".html"
-    }, 1000);
+    }, 600);
 
     var pageInd = document.getElementById('invertNav')
     pageInd.style.animation = 'heightReverseInd 0.6s cubic-bezier(.35, .76, .65, 1)'
@@ -35,7 +35,7 @@ function toPage (string) {
     setTimeout(function() {
         curtain.style.filter = 'opacity(1)'
         pageInd.style.filter = 'opacity(0)'
-    },600);
+    },400);
 }
 
 function startPage () {

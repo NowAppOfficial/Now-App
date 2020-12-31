@@ -57,12 +57,12 @@ function toPage (string) {
    curtain.style.display = 'block'
 
    curtain.style.zIndex = '5'
-   curtain.style.animation = 'height 0.6s cubic-bezier(.35, .76, .65, 1)'
+   curtain.style.animation = 'height 0.4s cubic-bezier(.35, .76, .65, 1)'
 
    setTimeout(function() {
        curtain.style.filter = null
        window.location.href =  string + ".html"
-   }, 1000);
+   }, 600);
 
    var pageInd = document.getElementById('invertNav')
    pageInd.style.animation = 'heightReverseInd 0.6s cubic-bezier(.35, .76, .65, 1)'
@@ -81,7 +81,7 @@ function toPage (string) {
    setTimeout(function() {
        curtain.style.filter = 'opacity(1)'
        pageInd.style.filter = 'opacity(0)'
-   },600);
+   },400);
 
 }
 
@@ -195,9 +195,11 @@ function removeListenersClear (string) {
 }
 
 //END
+/*
 document.getElementById('artDots').addEventListener('click', function(){
     console.log(document.getElementsByClassName('clearRemindButton' + '1')[0].innerHTML)
 })
+*/
 //Clear a reminder
 function clearReminder() {
 
@@ -236,11 +238,6 @@ function clearReminder() {
             document.getElementById('userReminders').removeChild(childToRemove)
             saveClientReminders();
 
-            if (reminderCount() < 4) {
-                document.getElementById('artDots').style.display = "block"
-            } else {
-                document.getElementById('artDots').style.display = "none"
-            }
         }, 599)
 
     }
@@ -509,15 +506,9 @@ function createNewReminder() {
 
     clientRemFinal = divRem
 
+    bigContRem.appendChild(clientRemFinal)
 
-
-    bigContRem.insertBefore(clientRemFinal, document.getElementById('artDots'))
-
-    if (reminderCount >= 3) {
-        document.getElementById('artDots').style.display = "none"
-    } else {
-        document.getElementById('artDots').style.display = "block"
-    }
+    divRem.style.animation = 'createNewAndDisplay 0.5s ease-out'
 
     assignRemoveListenersClear ();
     buttonAssign();
@@ -532,13 +523,11 @@ saveClientReminders()
 
 function setDefaultResetHtml () {
     var defaultHTML = `                                <div id="reminder1" class="remind-box">
-    <div class="user-content-reminder1 markForAllReminders name"><b>Take out your laundry!</b></div>
+    <div class="user-content-reminder1 markForAllReminders name">Remind yourself, silly!</div>
     <button id="clearAllReminders" class="clearRemindButton1 bt-mark" >Clear</button>
 </div>
 
-<div id="artDots">
-    <img class="art-Dots-Svg" src="Imgs/Art/Seagreen/SeagreenDots.svg" alt="">
-</div>`
+`
 
     document.getElementById('userReminders').innerHTML = defaultHTML
     saveClientReminders()
