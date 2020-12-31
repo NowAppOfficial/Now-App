@@ -618,3 +618,15 @@ function toTaskPageFocus() {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function overrideMakeSureTasks () {
+    var tasks = document.getElementsByClassName('task-Conts')
+    for (i = 0; i < tasks.length; i++) {
+        tasks[i].style.transition = 'ease 0.3s'
+    }
+}
+window.addEventListener('DOMContentLoaded', (event) => {
+    setTimeout(function() {
+        overrideMakeSureTasks();
+    }, 500)
+});
